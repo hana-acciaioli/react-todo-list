@@ -22,8 +22,10 @@ export default function Todo() {
   };
   const completeTodoHandler = async (todo) => {
     try {
-      const updatedTodo = completeTodo(todo);
-      setTodos((oldItem) => (oldItem.id === todo.id ? updatedTodo : oldItem));
+      const updatedTodo = await completeTodo(todo);
+      setTodos((prevTodos) =>
+        prevTodos.map((prevTodo) => (prevTodo.id === item.id ? updatedTodo : prevTodo))
+      );
     } catch (e) {
       console.error(e.message);
     }
@@ -39,7 +41,7 @@ export default function Todo() {
           <div key={todo.id}>
             <input
               type="checkbox"
-              checked={todo.complete}
+              checked={todo.completed}
               onClick={() => completeTodoHandler(todo)}
             />
             {todo.item}
