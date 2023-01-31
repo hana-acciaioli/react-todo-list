@@ -13,6 +13,6 @@ export function useTodos() {
       }
     };
     fetchTodos();
-  }, []);
+  }, [todos]);
   return { todos, setTodos };
 }

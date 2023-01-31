@@ -3,7 +3,7 @@ import { UserContext } from '../../context/UserContext.js';
 import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import { useTodos } from '../../hooks/useTodos.js';
-import { createTodo } from '../../services/todos.js';
+import { createTodo, completeTodo } from '../../services/todos.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
@@ -13,8 +13,17 @@ export default function Todo() {
   const newTodoHandler = async () => {
     try {
       await createTodo(item);
-      setTodos((oldList) => [...oldList, { item }]);
+      const newList = [{ ...todos }, { item }];
+      setTodos(newList);
       setItem('');
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+  const completeTodoHandler = async (todo) => {
+    try {
+      const updatedTodo = completeTodo(todo);
+      setTodos((oldItem) => (oldItem.id === todo.id ? updatedTodo : oldItem));
     } catch (e) {
       console.error(e.message);
     }
@@ -28,7 +37,11 @@ export default function Todo() {
       <div>
         {todos.map((todo) => (
           <div key={todo.id}>
-            <input type="checkbox" checked={todo.complete} />
+            <input
+              type="checkbox"
+              checked={todo.complete}
+              onClick={() => completeTodoHandler(todo)}
+            />
             {todo.item}
             {todo.id}
           </div>
