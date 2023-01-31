@@ -3,7 +3,7 @@ import { UserContext } from '../../context/UserContext.js';
 import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import { useTodos } from '../../hooks/useTodos.js';
-import { createTodo, completeTodo } from '../../services/todos.js';
+import { createTodo, completeTodo, deleteTodo } from '../../services/todos.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
@@ -31,6 +31,17 @@ export default function Todo() {
     }
   };
 
+  const deleteTodoHandler = async (todo) => {
+    try {
+      const deletedTodo = await deleteTodo(todo);
+      setTodos((prevTodos) =>
+        prevTodos.map((prevTodo) => (prevTodo.id === item.id ? deletedTodo : prevTodo))
+      );
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
   if (!user) {
     return <Redirect to="/auth/sign-in" />;
   }
@@ -45,7 +56,7 @@ export default function Todo() {
               onChange={() => completeTodoHandler(todo)}
             />
             {todo.item}
-            {todo.id}
+            <button onClick={() => deleteTodoHandler(todo)}>🗑️</button>
           </div>
         ))}
       </div>

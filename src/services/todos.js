@@ -15,3 +15,8 @@ export async function completeTodo({ id, completed }) {
 
   return checkError(resp);
 }
+
+export async function deleteTodo({ id }) {
+  const resp = await client.from('todo').delete().match({ id }).single();
+  return checkError(resp);
+}
