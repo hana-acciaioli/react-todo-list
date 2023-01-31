@@ -7,7 +7,7 @@ import { createTodo, completeTodo } from '../../services/todos.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
-  const { todos, setTodos } = useTodos();
+  const { todos, setTodos } = useTodos('');
   const [item, setItem] = useState('');
 
   const newTodoHandler = async () => {
@@ -42,7 +42,7 @@ export default function Todo() {
             <input
               type="checkbox"
               checked={todo.completed}
-              onClick={() => completeTodoHandler(todo)}
+              onChange={() => completeTodoHandler(todo)}
             />
             {todo.item}
             {todo.id}
