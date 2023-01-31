@@ -1,7 +1,7 @@
 import { client, checkError } from './client';
 
 export async function getTodos() {
-  const resp = await client.from('todo').select('*');
+  const resp = await client.from('todo').select('*').order('created_at');
   return checkError(resp);
 }
 

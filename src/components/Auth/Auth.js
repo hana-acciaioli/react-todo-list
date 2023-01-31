@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext.js';
 import { useParams, NavLink, Redirect } from 'react-router-dom';
 import { authUser } from '../../services/auth';
+import Button from '@mui/material/Button';
 
 export default function Auth() {
   const { type } = useParams();
@@ -48,7 +49,7 @@ export default function Auth() {
           ></input>{' '}
         </div>
         <div>
-          <button onClick={submitAuthHandler}>Submit</button>
+          <Button onClick={submitAuthHandler}>Submit</Button>
         </div>
       </nav>
     </div>

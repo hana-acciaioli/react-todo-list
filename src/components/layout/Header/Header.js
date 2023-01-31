@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext.js';
 import { signOut } from '../../../services/auth.js';
+import Button from '@mui/material/Button';
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
@@ -20,9 +21,9 @@ export default function Header() {
           {user && (
             <>
               <p>HELLO, {user.email} </p>
-              <button className="sign-out-button" onClick={signOutHandler}>
+              <Button className="sign-out-button" onClick={signOutHandler}>
                 Sign Out
-              </button>
+              </Button>
             </>
           )}
         </div>

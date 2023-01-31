@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
 import { useTodos } from '../../hooks/useTodos.js';
 import { createTodo, completeTodo, deleteTodo } from '../../services/todos.js';
+import Button from '@mui/material/Button';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
@@ -56,7 +57,7 @@ export default function Todo() {
               onChange={() => completeTodoHandler(todo)}
             />
             {todo.item}
-            <button onClick={() => deleteTodoHandler(todo)}>🗑️</button>
+            <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button>
           </div>
         ))}
       </div>
@@ -67,9 +68,9 @@ export default function Todo() {
           value={item}
           onChange={(e) => setItem(e.target.value)}
         ></input>
-        <button className="add-new-todo-button" onClick={newTodoHandler}>
+        <Button className="add-new-todo-button" onClick={newTodoHandler}>
           Add
-        </button>
+        </Button>
       </div>
     </>
   );
