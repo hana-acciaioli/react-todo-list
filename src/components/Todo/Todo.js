@@ -14,7 +14,7 @@ export default function Todo() {
   const newTodoHandler = async () => {
     try {
       await createTodo(item);
-      const newList = [{ ...todos }, { item }];
+      const newList = [...todos, { item }];
       setTodos(newList);
       setItem('');
     } catch (e) {
