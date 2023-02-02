@@ -33,16 +33,14 @@ export default function Todo() {
     }
   };
 
-  // const deleteTodoHandler = async (todo) => {
-  //   try {
-  //     const deletedTodo = await deleteTodo(todo);
-  //     setTodos((todos) =>
-  //       todos.map((prevTodo) => (prevTodo.id === item.id ? deletedTodo : prevTodo))
-  //     );
-  //   } catch (e) {
-  //     console.error(e.message);
-  //   }
-  // };
+  const deleteTodoHandler = async (todo) => {
+    try {
+      const deletedTodo = await deleteTodo(todo);
+      setTodos((todos) => todos.filter((prevTodo) => prevTodo.id !== deletedTodo.id));
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   if (!user) {
     return <Redirect to="/auth/sign-in" />;
@@ -58,7 +56,7 @@ export default function Todo() {
               onChange={() => completeTodoHandler(todo)}
             />
             {todo.item}
-            {/* <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button> */}
+            <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button>
           </div>
         ))}
       </div>
