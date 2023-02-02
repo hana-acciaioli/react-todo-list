@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { UserContext } from '../../context/UserContext.js';
 import { Redirect } from 'react-router-dom';
 import { useContext } from 'react';
-import { useTodos } from '../../hooks/useTodos.js';
 import { createTodo, completeTodo, deleteTodo } from '../../services/todos.js';
 import Button from '@mui/material/Button';
+import { useTodosContext } from '../../context/TodosContext.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
-  const { todos, setTodos } = useTodos('');
+  const { todos, setTodos, completed, setCompleted } = useTodosContext();
   const [item, setItem] = useState('');
 
   const newTodoHandler = async () => {
@@ -27,21 +27,22 @@ export default function Todo() {
       setTodos((prevTodos) =>
         prevTodos.map((prevTodo) => (prevTodo.id === item.id ? updatedTodo : prevTodo))
       );
+      setCompleted(true);
     } catch (e) {
       console.error(e.message);
     }
   };
 
-  const deleteTodoHandler = async (todo) => {
-    try {
-      const deletedTodo = await deleteTodo(todo);
-      setTodos((prevTodos) =>
-        prevTodos.map((prevTodo) => (prevTodo.id === item.id ? deletedTodo : prevTodo))
-      );
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
+  // const deleteTodoHandler = async (todo) => {
+  //   try {
+  //     const deletedTodo = await deleteTodo(todo);
+  //     setTodos((todos) =>
+  //       todos.map((prevTodo) => (prevTodo.id === item.id ? deletedTodo : prevTodo))
+  //     );
+  //   } catch (e) {
+  //     console.error(e.message);
+  //   }
+  // };
 
   if (!user) {
     return <Redirect to="/auth/sign-in" />;
@@ -57,7 +58,7 @@ export default function Todo() {
               onChange={() => completeTodoHandler(todo)}
             />
             {todo.item}
-            <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button>
+            {/* <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button> */}
           </div>
         ))}
       </div>
