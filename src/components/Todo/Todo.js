@@ -8,7 +8,7 @@ import { useTodosContext } from '../../context/TodosContext.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
-  const { todos, setTodos, setCompleted } = useTodosContext();
+  const { todos, setTodos, update, setUpdate } = useTodosContext();
   const [item, setItem] = useState('');
 
   const newTodoHandler = async () => {
@@ -20,6 +20,9 @@ export default function Todo() {
       const newList = [...todos, { item }];
       setTodos(newList);
       setItem('');
+      if (update === true) {
+        setUpdate(false);
+      } else setUpdate(true);
     } catch (e) {
       console.error(e.message);
     }
@@ -28,9 +31,11 @@ export default function Todo() {
     try {
       const updatedTodo = await completeTodo(todo);
       setTodos((prevTodos) =>
-        prevTodos.map((prevTodo) => (prevTodo.id === item.id ? updatedTodo : prevTodo))
+        prevTodos.map((prevTodo) => (prevTodo.id === todo.id ? updatedTodo : prevTodo))
       );
-      setCompleted(true);
+      if (update === true) {
+        setUpdate(false);
+      } else setUpdate(true);
     } catch (e) {
       console.error(e.message);
     }

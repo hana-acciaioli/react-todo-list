@@ -6,7 +6,7 @@ const TodosContext = createContext();
 
 const TodosProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
-  const [completed, setCompleted] = useState(false);
+  const [update, setUpdate] = useState('');
 
   const { user } = useContext(UserContext);
 
@@ -32,11 +32,11 @@ const TodosProvider = ({ children }) => {
       }
     };
     fetchUpdatedTodos();
-  }, [completed]);
+  }, [update]);
 
   //   return { todos, setTodos };
   return (
-    <TodosContext.Provider value={{ todos, setTodos, completed, setCompleted }}>
+    <TodosContext.Provider value={{ todos, setTodos, update, setUpdate }}>
       {children}
     </TodosContext.Provider>
   );
