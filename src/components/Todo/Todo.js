@@ -12,6 +12,9 @@ export default function Todo() {
   const [item, setItem] = useState('');
 
   const newTodoHandler = async () => {
+    //  console error: child in a list should have a unique "key" prop.
+    // I believe this is happening because new list item is rendering on page without an id. issue with updating and deleting occurs later
+
     try {
       await createTodo(item);
       const newList = [...todos, { item }];
