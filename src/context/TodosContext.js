@@ -22,17 +22,17 @@ const TodosProvider = ({ children }) => {
     fetchTodos();
   }, [user]);
 
-  //   useEffect(() => {
-  //     const fetchUpdatedTodos = async () => {
-  //       try {
-  //         const data = await getTodos();
-  //         setTodos(data);
-  //       } catch (e) {
-  //         console.error(e.message);
-  //       }
-  //     };
-  //     fetchUpdatedTodos();
-  //   }, [setCompleted]);
+  useEffect(() => {
+    const fetchUpdatedTodos = async () => {
+      try {
+        const data = await getTodos();
+        setTodos(data);
+      } catch (e) {
+        console.error(e.message);
+      }
+    };
+    fetchUpdatedTodos();
+  }, [completed]);
 
   //   return { todos, setTodos };
   return (

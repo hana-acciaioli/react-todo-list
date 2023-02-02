@@ -8,7 +8,7 @@ import { useTodosContext } from '../../context/TodosContext.js';
 
 export default function Todo() {
   const { user } = useContext(UserContext);
-  const { todos, setTodos, completed, setCompleted } = useTodosContext();
+  const { todos, setTodos, setCompleted } = useTodosContext();
   const [item, setItem] = useState('');
 
   const newTodoHandler = async () => {
