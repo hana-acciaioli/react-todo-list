@@ -56,6 +56,17 @@ export default function Todo() {
   return (
     <>
       <div>
+        <input
+          type="text"
+          placeholder="new item"
+          value={item}
+          onChange={(e) => setItem(e.target.value)}
+        ></input>
+        <Button className="add-new-todo-button" onClick={newTodoHandler}>
+          Add
+        </Button>
+      </div>
+      <div>
         {todos.map((todo) => (
           <div key={todo.id}>
             <input
@@ -67,17 +78,6 @@ export default function Todo() {
             <Button onClick={() => deleteTodoHandler(todo)}>🗑️</Button>
           </div>
         ))}
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="new item"
-          value={item}
-          onChange={(e) => setItem(e.target.value)}
-        ></input>
-        <Button className="add-new-todo-button" onClick={newTodoHandler}>
-          Add
-        </Button>
       </div>
     </>
   );

@@ -46,7 +46,7 @@ const useTodosContext = () => {
 
   // setting up a dev error that throws when you try to access UserContext in a component not wrapped in UserProvider
   if (!context) {
-    throw new Error('useTaskContext must be wrapped in a TaskProvider');
+    throw new Error('useTodoContext must be wrapped in a TaskProvider');
   }
   return context;
 };
